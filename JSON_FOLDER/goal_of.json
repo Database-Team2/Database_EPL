@@ -299,7 +299,7 @@
             "club_id": 14,
             "player_id": 3169,
             "goal_id": 42,
-            "goal_time": "7(og)"
+            "goal_time": "7(OG)"
         },
         {
             "match_id": 66358,
@@ -348,7 +348,7 @@
             "club_id": 12,
             "player_id": 5906,
             "goal_id": 49,
-            "goal_time": "30(og)"
+            "goal_time": "30(OG)"
         },
         {
             "match_id": 66359,
@@ -975,8 +975,8 @@
         },
         {
             "match_id": 66398,
-            "club_id": 8979,
-            "player_id": 139,
+            "club_id": 43,
+            "player_id": 8979,
             "goal_id": 139,
             "goal_time": "12(OG)"
         },
