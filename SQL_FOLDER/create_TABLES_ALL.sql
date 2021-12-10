@@ -2,30 +2,30 @@
 
 -- 스타디움 테이블 생성
 CREATE TABLE STADIUM (
-Stadium_id INT UNSIGNED PRIMARY KEY,
-Stadium_name VARCHAR(45),
-Capacity VARCHAR(45)
+	Stadium_id INT UNSIGNED PRIMARY KEY,
+	Stadium_name VARCHAR(45),
+	Capacity VARCHAR(45)
 );
 
 -- 클럽_인포 테이블 생성
 CREATE TABLE CLUB_INFO(
-Club_id INT UNSIGNED PRIMARY KEY,
-Club_name VARCHAR(30),
-Stadium INT UNSIGNED NOT NULL,
-badge_images_url VARCHAR(100),
-club_url VARCHAR(100),
-FOREIGN KEY(Stadium) REFERENCES STADIUM(Stadium_id)
+	Club_id INT UNSIGNED PRIMARY KEY,
+	Club_name VARCHAR(30),
+	Stadium INT UNSIGNED NOT NULL,
+	badge_images_url VARCHAR(100),
+	club_url VARCHAR(100),
+	FOREIGN KEY(Stadium) REFERENCES STADIUM(Stadium_id)
 );
 
 -- 선수 테이블 생성
 CREATE TABLE PLAYER(
-Player_id INT UNSIGNED PRIMARY KEY,
-Club_id INT UNSIGNED NOT NULL,
-Player_name VARCHAR(45),
-Uniform_num INT,
-Date_of_birth VARCHAR(45),
-position VARCHAR(45),
-FOREIGN KEY(Club_id) REFERENCES CLUB_INFO(Club_id)
+	Player_id INT UNSIGNED PRIMARY KEY,
+	Club_id INT UNSIGNED NOT NULL,
+	Player_name VARCHAR(45),
+	Uniform_num INT,
+	Date_of_birth VARCHAR(45),
+	position VARCHAR(45),
+	FOREIGN KEY(Club_id) REFERENCES CLUB_INFO(Club_id)
 );
 
 -- 경기 결과 테이블 생성
@@ -44,29 +44,29 @@ CREATE TABLE MATCH_INFO
 -- WHERE match_date = "";
 
 CREATE TABLE MATCH_DETAIL(
-  Match_id INT UNSIGNED NOT NULL PRIMARY KEY,
-  Home_score INT NOT NULL,
-  Away_score INT NOT NULL,
-  King_of_the_match CHAR(45) NOT NULL
+	Match_id INT UNSIGNED NOT NULL PRIMARY KEY,
+	Home_score INT NOT NULL,
+	Away_score INT NOT NULL,
+	King_of_the_match CHAR(45) NOT NULL
   );
 
 CREATE TABLE MATCH_WIN(
-  Match_id INT NOT NULL,
-  Winner_club_id INT NOT NULL
+	Match_id INT NOT NULL,
+	Winner_club_id INT NOT NULL
 );
 
 -- 클럽 결과 테이블 생성
 CREATE TABLE CLUB_RESULT(
-Club_id INT UNSIGNED PRIMARY KEY,
-position INT UNSIGNED,
-played INT UNSIGNED,
-won INT UNSIGNED,
-draw INT UNSIGNED,
-lost INT UNSIGNED,
-gf INT UNSIGNED,
-ga INT UNSIGNED,
-form VARCHAR(5),
-FOREIGN KEY(Club_id) REFERENCES CLUB_INFO(Club_id)
+	Club_id INT UNSIGNED PRIMARY KEY,
+	position INT UNSIGNED,
+	played INT UNSIGNED,
+	won INT UNSIGNED,
+	draw INT UNSIGNED,
+	lost INT UNSIGNED,
+	gf INT UNSIGNED,
+	ga INT UNSIGNED,
+	form VARCHAR(5),
+	FOREIGN KEY(Club_id) REFERENCES CLUB_INFO(Club_id)
 );
 
 CREATE TABLE GOAL_OF(
@@ -99,6 +99,7 @@ create table match_lineups(
     away_lineups INT UNSIGNED NOT NULL,
 	foreign key(match_id) references MATCH_INFO(match_id)
 );
+
 create table match_sub(
 	match_id INT UNSIGNED NOT NULL,
     home_team_id INT UNSIGNED NOT NULL,
@@ -107,6 +108,7 @@ create table match_sub(
     away_sub INT UNSIGNED NOT NULL,
 	foreign key(match_id) references MATCH_INFO(match_id)
 );
+
 create table in_out(
     match_id INT UNSIGNED NOT NULL,
     in_out varchar(20),
