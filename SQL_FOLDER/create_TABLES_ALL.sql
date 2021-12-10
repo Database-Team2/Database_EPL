@@ -10,7 +10,7 @@ Capacity VARCHAR(45)
 -- 클럽_인포 테이블 생성
 CREATE TABLE CLUB_INFO(
 Club_id INT UNSIGNED PRIMARY KEY,
-Club_name VARCHAR(20),
+Club_name VARCHAR(30),
 Stadium INT UNSIGNED NOT NULL,
 badge_images_url VARCHAR(100),
 club_url VARCHAR(100),
@@ -19,7 +19,7 @@ FOREIGN KEY(Stadium) REFERENCES STADIUM(Stadium_id)
 
 -- 선수 테이블 생성
 CREATE TABLE PLAYER(
-Player_id INT UNSIGNED PRIMARY KEY ,
+Player_id INT UNSIGNED PRIMARY KEY,
 Club_id INT UNSIGNED NOT NULL,
 Player_name VARCHAR(45),
 Uniform_num INT,
@@ -47,7 +47,7 @@ CREATE TABLE MATCH_DETAIL(
   Match_id INT UNSIGNED NOT NULL PRIMARY KEY,
   Home_score INT NOT NULL,
   Away_score INT NOT NULL,
-  King_of_the_match INT NOT NULL
+  King_of_the_match CHAR(45) NOT NULL
   );
 
 CREATE TABLE MATCH_WIN(
@@ -71,22 +71,47 @@ FOREIGN KEY(Club_id) REFERENCES CLUB_INFO(Club_id)
 
 CREATE TABLE GOAL_OF(
 	match_id INT UNSIGNED NOT NULL, -- USING UNSIGNED INT, SET FOREIGN KEY
-    club_id INT UNSIGNED NOT NULL, -- USING UNSIGNED TINYINT, SET FOREIGN KEY
+    club_id INT UNSIGNED NOT NULL, -- USING UNSIGNED TINT, SET FOREIGN KEY
     player_id INT UNSIGNED NOT NULL, -- USING UNSIGNED INT
     goal_id INT UNSIGNED PRIMARY KEY, -- USING UNSIGNED INT, SET PK
-    goal_time CHAR(10), -- USING UNSIGNED INT
-    FOREIGN KEY(match_id) REFERENCES MATCH_INFO(Match_id), -- USING MATCH_DETAIL.match_id FOR FOREIGN KEY
+    goal_time CHAR(10), -- USING UNSIGNED CHAR
+    FOREIGN KEY(match_id) REFERENCES MATCH_DETAIL(Match_id), -- USING MATCH_INFO.match_id FOR FOREIGN KEY
     FOREIGN KEY(player_id) REFERENCES PLAYER(player_id), -- USING PLAYER.player_id FOR FOREIGN KEY
-    FOREIGN KEY(club_id) REFERENCES PLAYER(club_id) -- USING MATCH_DETAIL.club_id FOR FOREIGN KEY
+    FOREIGN KEY(club_id) REFERENCES CLUB_INFO(club_id) -- USING CLUB_INFO.club_id FOR FOREIGN KEY
 );
 
 CREATE TABLE FOUL_OF(
 	match_id INT UNSIGNED NOT NULL, -- USING UNSIGNED INT, SET FOREIGN KEY
-    club_id INT UNSIGNED NOT NULL, -- USING UNSIGNED TINYINT, SET FOREIGN KEY
+    club_id INT UNSIGNED NOT NULL, -- USING UNSIGNED INT, SET FOREIGN KEY
     player_id INT UNSIGNED NOT NULL, -- USING UNSIGNED INT
-    foul_time CHAR(10) NOT NULL, -- USING UNSIGNED TINYINT
+    foul_time CHAR(10) NOT NULL, -- USING UNSIGNED CHAR
     sent_off BOOLEAN NOT NULL, -- USING BOOLEAN
-    FOREIGN KEY(match_id) REFERENCES MATCH_DETAIL(Match_id), -- USING MATCH_DETAIL.match_id FOR FOREIGN KEY
+    FOREIGN KEY(match_id) REFERENCES MATCH_DETAIL(Match_id), -- USING MATCH_INFO.match_id FOR FOREIGN KEY
     FOREIGN KEY(player_id) REFERENCES PLAYER(player_id), -- USING PLAYER.player_id FOR FOREIGN KEY
-    FOREIGN KEY(club_id) REFERENCES PLAYER(club_id) -- USING MATCH_DETAIL.club_id FOR FOREIGN KEY
+    FOREIGN KEY(club_id) REFERENCES CLUB_INFO(club_id) -- USING CLUB_INFO.club_id FOR FOREIGN KEY
 );
+
+create table match_lineups(
+    match_id INT UNSIGNED NOT NULL,
+    home_team_id INT UNSIGNED NOT NULL,
+    away_team_id INT UNSIGNED NOT NULL,
+    home_lineups INT UNSIGNED NOT NULL,
+    away_lineups INT UNSIGNED NOT NULL,
+	foreign key(match_id) references MATCH_INFO(match_id)
+);
+create table match_sub(
+	match_id INT UNSIGNED NOT NULL,
+    home_team_id INT UNSIGNED NOT NULL,
+    away_team_id INT UNSIGNED NOT NULL,
+    home_sub INT UNSIGNED NOT NULL,
+    away_sub INT UNSIGNED NOT NULL,
+	foreign key(match_id) references MATCH_INFO(match_id)
+);
+create table in_out(
+    match_id INT UNSIGNED NOT NULL,
+    in_out varchar(20),
+    time varchar(10),
+    player_id INT UNSIGNED NOT NULL,
+    club_id INT UNSIGNED NOT NULL,
+    foreign key(match_id) references MATCH_INFO(match_id)
+)
